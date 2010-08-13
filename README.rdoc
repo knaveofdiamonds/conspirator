@@ -1,6 +1,6 @@
-= conspirator
+= Conspirator
 
-Description goes here.
+Because it plots...
 
 == Note on Patches/Pull Requests
  
