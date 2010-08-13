@@ -6,35 +6,36 @@ module Conspirator
     # If the data array is changed after using this encoder, the
     # behaviour is undefined.
     #
-    def initialize(data, max)
+    def initialize(data, max_granularity)
       @data = data
-      @max = max
+      @default_max = data.max
+      @default_min = data.min
+      @max_granularity = max_granularity
     end
+
+    # Applies scaling to the array of data.
+    def scale(opts={})
+      @max = opts[:max] || @default_max
+      @min = opts[:min] || @default_min
+      @data.map {|x| ((x + offset) / divisor).round }
+    end
+
+    private
 
     # Returns the number data will be divided by to fit within encoding limits.
     def divisor
-      @divisor ||= spread / @max.to_f
-    end
-
-    # Returns the spread of the data.
-    def spread
-      @spread ||= @data.max - @data.min
+      spread / @max_granularity.to_f
     end
 
     # Returns the amount values have to be offset so the minimum value
     # equates to zero.
     def offset
-      @offset ||= 0 - @data.min
+      0 - @min
     end
 
-    # Applies scaling to the array of data.
-    def scaled_data
-      @scaled_data ||= @data.map {|x| ((x + offset) / divisor).round }
-    end
-
-    # Delegates Array methods to the scaled data.
-    def method_missing(*args, &block)
-      scaled_data.send(*args, &block)
+    # Returns the spread of the data.
+    def spread
+      @max - @min
     end
   end
 end

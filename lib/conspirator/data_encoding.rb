@@ -21,7 +21,7 @@ module Conspirator
     # extended number format. This does not include the URL parameter
     # name.
     def encode(data)
-      "e:" + ScaledArray.new(data, MAX).map {|x| translate(x) }.join('')
+      "e:" + ScaledArray.new(data, MAX).scale.map {|x| translate(x) }.join('')
     end
   end
 end
