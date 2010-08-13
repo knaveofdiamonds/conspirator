@@ -5,6 +5,10 @@ describe "ScaledArray" do
     ScaledArray.new([0, 4095, 666], 4095).divisor.should == 1
   end
 
+  it "should return 1/5 if all values are between 0 and 819" do
+    ScaledArray.new([0, 819, 666], 4095).divisor.should == 0.2
+  end
+
   it "should return a scaling factor if a value is bigger than 4095" do
     ScaledArray.new([0, 8190, 666], 4095).divisor.should == 2
   end

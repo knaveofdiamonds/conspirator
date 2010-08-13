@@ -13,7 +13,7 @@ module Conspirator
 
     # Returns the number data will be divided by to fit within encoding limits.
     def divisor
-      @divisor ||= (spread <= @max) ? 1 : spread / @max.to_f
+      @divisor ||= spread / @max.to_f
     end
 
     # Returns the spread of the data.

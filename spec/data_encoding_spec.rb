@@ -25,7 +25,7 @@ describe "Google Charts' extended data encoding" do
   end
 
   it "should apply a translation to every number in an array" do
-    ExtendedEncoding.new.encode([0,1,2]).should == "e:AAABAC"
+    ExtendedEncoding.new.encode([0,1,4095]).should == "e:AAAB.."
   end
 
   it "should have a maximum value of 4095" do
