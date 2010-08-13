@@ -4,6 +4,8 @@ require 'conspirator'
 require 'spec'
 require 'spec/autorun'
 
+include Conspirator
+
 Spec::Runner.configure do |config|
   
 end
