@@ -1,7 +1,9 @@
 module Conspirator
   # The Google Extended Encoding.
   #
-  # Can represent integers between 0 and 4095.
+  # Can represent integers between 0 and 4095. Extended encoding gives
+  # the best tradeoff between representing data faithfully and size of
+  # the data parameter in the url.
   #
   # Details: http://code.google.com/apis/chart/docs/data_formats.html#extended
   class ExtendedEncoding
@@ -20,8 +22,12 @@ module Conspirator
     # Returns a string representation of the given scaled data in the
     # extended number format. This does not include the URL parameter
     # name.
-    def encode(data)
-      "e:" + ScaledArray.new(data, MAX).scale.map {|x| translate(x) }.join('')
+    #
+    # Takes an optional :max and/or :min value if you don't want the
+    # data to be scaled to fill the graph. Out of bounds values in the
+    # data given manual minimums or maximums will not be displayed.
+    def encode(data, opts={})
+      "e:" + ScaledArray.new(data, MAX).scale(opts).map {|x| translate(x) }.join('')
     end
   end
 end
