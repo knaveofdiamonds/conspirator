@@ -2,15 +2,15 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Summary statistics" do
   it "should return the maximum of a set of data" do
-    SummaryStatistics.new([1,2,3,5,9,3]).max.should == 9
+    SummaryStatistics.summarize([1,2,3,5,9,3]).max.should == 9
   end
 
   it "should return the minimum of a set of data" do
-    SummaryStatistics.new([1,2,3,5,9,3]).min.should == 1
+    SummaryStatistics.summarize([1,2,3,5,9,3]).min.should == 1
   end
 
   it "should return the difference between smallest and largest value as the range" do
-    SummaryStatistics.new([1,2,9,5,3,4]).range.should == 8
+    SummaryStatistics.summarize([1,2,9,5,3,4]).range.should == 8
   end
 
   context "with an odd sized data set" do
@@ -19,19 +19,19 @@ describe "Summary statistics" do
     end
 
     it "should return the middle value of an odd-sized list as the median" do
-      SummaryStatistics.new(@data).median.should == 40
+      SummaryStatistics.summarize(@data).median.should == 40
     end
     
     it "should return the first quartile" do
-      SummaryStatistics.new(@data).first_quartile.should == 15
+      SummaryStatistics.summarize(@data).first_quartile.should == 15
     end
 
     it "should return the fourth quartile" do
-      SummaryStatistics.new(@data).third_quartile.should == 43
+      SummaryStatistics.summarize(@data).third_quartile.should == 43
     end
 
     it "should return the interquartile range" do
-      SummaryStatistics.new(@data).interquartile_range.should == 28
+      SummaryStatistics.summarize(@data).interquartile_range.should == 28
     end
   end
 
@@ -41,15 +41,15 @@ describe "Summary statistics" do
     end
 
     it "should return the average of the middle values of an even-sized list as the median" do
-      SummaryStatistics.new(@data).median.should == 37.5
+      SummaryStatistics.summarize(@data).median.should == 37.5
     end
 
     it "should calculate the first quartile (using SAS Method 4)" do
-      SummaryStatistics.new(@data).first_quartile.should == 13
+      SummaryStatistics.summarize(@data).first_quartile.should == 13
     end
 
     it "should calculate the third quartile (using SAS Method 4)" do
-      SummaryStatistics.new(@data).third_quartile.should == 40.25
+      SummaryStatistics.summarize(@data).third_quartile.should == 40.25
     end
   end
 end

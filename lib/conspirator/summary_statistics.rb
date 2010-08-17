@@ -10,8 +10,12 @@ module Conspirator
     #
     # If the data is already sorted, pass the :presorted symbol as the
     # second parameter.
-    def initialize(data, presorted=nil)
-      @data   = presorted == :presorted ? data : data.sort
+    def self.summarize(data, presorted=nil)
+      new(data, presorted == :presorted)
+    end
+
+    def initialize(data, presorted=false)
+      @data   = presorted ? data : data.sort
       @max    = data.max
       @min    = data.min
       @median = percentile(50)
